@@ -1,0 +1,364 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://assets/Titillium-Regular.otf" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/lightblue_equirectangular.png" type="Texture" id=2]
+[ext_resource path="res://FPS_project_icon.png" type="Texture" id=3]
+[ext_resource path="res://assets/Space_Level_Objects/SpaceThumbnail.png" type="Texture" id=4]
+[ext_resource path="res://assets/Ruin_Level_Objects/RuinsThumbnail.png" type="Texture" id=5]
+[ext_resource path="res://menus/MainMenu.cs" type="Script" id=6]
+
+[sub_resource type="PanoramaSky" id=1]
+radiance_size = 0
+panorama = ExtResource( 2 )
+
+[sub_resource type="Environment" id=2]
+background_mode = 2
+background_sky = SubResource( 1 )
+fog_height_min = 0.0
+fog_height_max = 100.0
+tonemap_mode = 3
+ssao_quality = 0
+dof_blur_far_amount = 0.08
+glow_enabled = true
+glow_levels/1 = true
+glow_levels/2 = true
+glow_levels/5 = false
+glow_intensity = 1.0
+glow_strength = 1.1
+glow_blend_mode = 0
+glow_bicubic_upscale = true
+
+[sub_resource type="Animation" id=3]
+resource_name = "Background_Animation"
+length = 9.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Main_Menu_Camera:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 40, 40, 40 ), Vector3( 80, 80, 80 ), Vector3( 120, 120, 120 ), Vector3( 160, 160, 160 ), Vector3( 200, 200, 200 ), Vector3( 240, 240, 240 ), Vector3( 280, 280, 280 ), Vector3( 320, 320, 320 ), Vector3( 360, 360, 360 ) ]
+}
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.199219, 0.199219, 0.199219, 1 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color( 0.0535583, 0.064363, 0.152344, 1 )
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="DynamicFont" id=5]
+size = 32
+use_filter = true
+font_data = ExtResource( 1 )
+
+[node name="Main_Menu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+TestingAreaScene = "res://Testing_Area.tscn"
+SpaceAreaScene = "res://assets/Space_Level_Objects/Space_Level.tscn"
+RuinsAreaScene = "res://assets/Ruin_Level_Objects/Ruins_Level.tscn"
+
+[node name="Background_Animation" type="Spatial" parent="."]
+
+[node name="World_Environment" type="WorldEnvironment" parent="Background_Animation"]
+environment = SubResource( 2 )
+
+[node name="Main_Menu_Camera" type="Camera" parent="Background_Animation"]
+transform = Transform( 1, -1.74846e-07, 1.74846e-07, 1.74846e-07, 1, -1.74846e-07, -1.74846e-07, 1.74846e-07, 1, 0, 0, 0 )
+
+[node name="Animation_Player" type="AnimationPlayer" parent="Background_Animation"]
+autoplay = "Background_Animation"
+playback_speed = 0.18
+anims/Background_Animation = SubResource( 3 )
+
+[node name="Start_Menu" type="Panel" parent="."]
+modulate = Color( 1, 1, 1, 0.901961 )
+margin_right = 330.0
+margin_bottom = 720.0
+custom_styles/panel = SubResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title_Label" type="Label" parent="Start_Menu"]
+margin_left = 20.0
+margin_top = 10.0
+margin_right = 227.0
+margin_bottom = 77.0
+rect_scale = Vector2( 1.4, 1.4 )
+custom_fonts/font = SubResource( 5 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 3
+text = "Godot 3
+FPS Tutorial"
+align = 1
+valign = 1
+
+[node name="Button_Start" type="Button" parent="Start_Menu"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -155.0
+margin_top = -250.0
+margin_right = 155.0
+margin_bottom = -200.0
+custom_fonts/font = SubResource( 5 )
+text = "Start game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button_Open_Godot" type="Button" parent="Start_Menu"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -155.0
+margin_top = -190.0
+margin_right = 155.0
+margin_bottom = -140.0
+custom_fonts/font = SubResource( 5 )
+text = "Open Godot website"
+
+[node name="Button_Options" type="Button" parent="Start_Menu"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -155.0
+margin_top = -130.0
+margin_right = 155.0
+margin_bottom = -80.0
+custom_fonts/font = SubResource( 5 )
+text = "Options"
+
+[node name="Button_Quit" type="Button" parent="Start_Menu"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -155.0
+margin_top = -70.0
+margin_right = 155.0
+margin_bottom = -20.0
+custom_fonts/font = SubResource( 5 )
+text = "Quit"
+
+[node name="Level_Select_Menu" type="Panel" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0.901961 )
+margin_right = 330.0
+margin_bottom = 720.0
+custom_styles/panel = SubResource( 4 )
+
+[node name="Title_Label" type="Label" parent="Level_Select_Menu"]
+margin_left = 20.0
+margin_top = 10.0
+margin_right = 227.0
+margin_bottom = 77.0
+rect_scale = Vector2( 1.4, 1.4 )
+custom_fonts/font = SubResource( 5 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 3
+text = "Select a level"
+align = 1
+valign = 1
+
+[node name="Button_Back" type="Button" parent="Level_Select_Menu"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -155.0
+margin_top = -70.0
+margin_right = 155.0
+margin_bottom = -20.0
+custom_fonts/font = SubResource( 5 )
+text = "Back"
+
+[node name="Button_Level_Testing_Area" type="Button" parent="Level_Select_Menu"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -70.0
+margin_top = 113.0
+margin_right = 70.0
+margin_bottom = 253.0
+
+[node name="Icon" type="TextureRect" parent="Level_Select_Menu/Button_Level_Testing_Area"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -60.0
+margin_top = -60.0
+margin_right = 60.0
+margin_bottom = 60.0
+texture = ExtResource( 3 )
+expand = true
+
+[node name="Button_Level_Space" type="Button" parent="Level_Select_Menu"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -70.0
+margin_top = 275.0
+margin_right = 70.0
+margin_bottom = 415.0
+
+[node name="Icon" type="TextureRect" parent="Level_Select_Menu/Button_Level_Space"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -60.0
+margin_top = -60.0
+margin_right = 60.0
+margin_bottom = 60.0
+texture = ExtResource( 4 )
+expand = true
+
+[node name="Button_Level_Ruins" type="Button" parent="Level_Select_Menu"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -70.0
+margin_top = 433.0
+margin_right = 70.0
+margin_bottom = 573.0
+
+[node name="Icon" type="TextureRect" parent="Level_Select_Menu/Button_Level_Ruins"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -60.0
+margin_top = -60.0
+margin_right = 60.0
+margin_bottom = 60.0
+texture = ExtResource( 5 )
+expand = true
+
+[node name="Options_Menu" type="Panel" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0.901961 )
+margin_right = 330.0
+margin_bottom = 720.0
+custom_styles/panel = SubResource( 4 )
+
+[node name="Title_Label" type="Label" parent="Options_Menu"]
+margin_left = 20.0
+margin_top = 10.0
+margin_right = 227.0
+margin_bottom = 53.0
+rect_scale = Vector2( 1.4, 1.4 )
+custom_fonts/font = SubResource( 5 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 3
+text = "Options"
+align = 1
+valign = 1
+
+[node name="Label_Mouse_Sensitivity" type="Label" parent="Options_Menu"]
+margin_top = 120.0
+margin_right = 330.0
+margin_bottom = 152.0
+custom_fonts/font = SubResource( 5 )
+text = "Mouse sensitivity"
+align = 1
+valign = 1
+
+[node name="HSlider_Mouse_Sensitivity" type="HSlider" parent="Options_Menu"]
+margin_left = 10.0
+margin_top = 160.0
+margin_right = 320.0
+margin_bottom = 176.0
+min_value = 0.001
+max_value = 0.4
+step = 0.004
+value = 0.012
+
+[node name="Label_Joypad_Sensitivity" type="Label" parent="Options_Menu"]
+margin_top = 190.0
+margin_right = 330.0
+margin_bottom = 222.0
+custom_fonts/font = SubResource( 5 )
+text = "Joypad sensitivity"
+align = 1
+valign = 1
+
+[node name="HSlider_Joypad_Sensitivity" type="HSlider" parent="Options_Menu"]
+margin_left = 10.0
+margin_top = 230.0
+margin_right = 320.0
+margin_bottom = 246.0
+min_value = 0.1
+max_value = 5.0
+step = 0.1
+value = 0.1
+
+[node name="Check_Button_VSync" type="CheckButton" parent="Options_Menu"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -135.0
+margin_top = -450.0
+margin_right = 135.0
+margin_bottom = -410.0
+custom_fonts/font = SubResource( 5 )
+pressed = true
+text = "V-Sync"
+
+[node name="Button_Fullscreen" type="Button" parent="Options_Menu"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -135.0
+margin_top = -400.0
+margin_right = 135.0
+margin_bottom = -350.0
+custom_fonts/font = SubResource( 5 )
+text = "Fullscreen"
+
+[node name="Check_Button_Debug" type="CheckButton" parent="Options_Menu"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -155.0
+margin_top = -150.0
+margin_right = 155.0
+margin_bottom = -110.0
+custom_fonts/font = SubResource( 5 )
+text = "Debug display"
+
+[node name="Button_Back" type="Button" parent="Options_Menu"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -155.0
+margin_top = -70.0
+margin_right = 155.0
+margin_bottom = -20.0
+custom_fonts/font = SubResource( 5 )
+text = "Back"
